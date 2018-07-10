@@ -120,7 +120,7 @@ known bug
 
 ## Фронтэнд часть на React:
 
-- WYSIWIG редаткор =[ https://github.com/GitbookIO/react-rich-diff](https://github.com/GitbookIO/react-rich-diff)
+- WYSIWIG редактор =[ https://github.com/GitbookIO/react-rich-diff](https://github.com/GitbookIO/react-rich-diff)
 - сравнение двух маркдаунов =[ https://github.com/GitbookIO/react-rich-diff](https://github.com/GitbookIO/react-rich-diff)<br/>
 [https://github.com/jpreynat/slate](https://github.com/jpreynat/slate)<br/>
 См [ https://github.com/jpreynat/slate/tree/master/examples/markdown-shortcuts](https://github.com/jpreynat/slate/tree/master/examples/markdown-shortcuts) и[ https://github.com/jpreynat/slate/tree/master/examples/markdown-preview](https://github.com/jpreynat/slate/tree/master/examples/markdown-preview)
