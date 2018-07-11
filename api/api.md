@@ -20,7 +20,7 @@
 }
 ```
 
-## GET /api/projects/<id>
+## GET /api/projects/{id}
 
 **Response:**
 
@@ -40,11 +40,11 @@
 
 **Response:**
 
-same as `GET /api/projects/<id>`
+same as `GET /api/projects/{id}`
 
 # /api/projects/source
 
-## GET /api/projects/source/master/<filepath>/ (folder)
+## GET /api/projects/source/master/{filepath}/ (folder)
 
 **Request params:**
 
@@ -71,7 +71,7 @@ same as `GET /api/projects/<id>`
 }
 ```
 
-## GET /api/projects/source/master/<filepath>/<myfile>
+## GET /api/projects/source/master/{filepath}/{myfile}
 
 
 **Response:**
@@ -113,7 +113,7 @@ Commits a file
 
 **Response:**
 
-same as `GET /api/projects/source/master/<filepath>/<myfile>`
+same as `GET /api/projects/source/master/{filepath}/{myfile}`
 
 ## GET /api/projects/compare/master..new_branch
 
