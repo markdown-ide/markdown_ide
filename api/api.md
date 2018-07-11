@@ -102,14 +102,14 @@ Commits a file
 
 **Request params:**
 
-attributes[attrib1] = "val1",
-attributes[attrib2] = "val2",
-attributes[attrib3] = 123,
-attributes[attrib4][] = "one"
-attributes[attrib4][] = "two"
-attributes[attrib5] = "true"
-attributes[attrib6] = "false"
-text = "many many many many many words in text"
+- attributes[attrib1] = "val1",
+- attributes[attrib2] = "val2",
+- attributes[attrib3] = 123,
+- attributes[attrib4][] = "one"
+- attributes[attrib4][] = "two"
+- attributes[attrib5] = "true"
+- attributes[attrib6] = "false"
+- text = "many many many many many words in text"
 
 **Response:**
 
