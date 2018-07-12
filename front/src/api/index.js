@@ -15,7 +15,9 @@ const request = (method, uri, data = null) => {
     return;
   }
 
-  const url = server.serverURI + uri;
+  const url = (uri.substr(0, 4) === 'http')
+    ? uri
+    : server.serverURI + uri;
   // console.log('api', url);
   return axios({ method, url, data });
 };
