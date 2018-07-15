@@ -69,6 +69,29 @@ def get_project(id):
 
 @app.route('/api/projects/<projectCode>/<branch>/folder')
 def get_folders(projectCode, branch):
+    """
+    :projectCode: идентификатор проекта
+    :branch: необходимая ветка
+    :folderPath: GET параметр путь к папке, получить через request.args.get('folderPath')
+
+    **Response:**
+    ```
+    {
+        "list": [
+            {
+                "name": "myfile.md",
+                "full_path": "/folder/myfile.md",
+                "parent": "/folder/"
+            }
+        ],
+        "_meta": {
+            "per-page": 12,
+            "page": 12,
+            "total-pages": 12
+        }
+    }
+    ```
+    """
     response = {
         "list": [
             {
@@ -87,8 +110,31 @@ def get_folders(projectCode, branch):
 
 @app.route('/api/projects/<projectCode>/<branch>/file')
 def get_file(projectCode, branch):
+    """
+    :projectCode: идентификатор проекта
+    :branch: необходимая ветка
+    :folderPath: GET параметр путь к папке, получить через request.args.get('filePath')
 
-    # "filePath": request.args.get('filePath')
+    **Response:**
+    ```
+    {
+        "name": "myfile.md",
+        "full_path": "/folder/myfile.md",
+        "parent": "/folder/",
+        "attributes": {
+            "attrib1": "val1",
+            "attrib2": "val2",
+            "attrib3": 123,
+            "attrib4": [
+                "one", "two"
+            ],
+            "attrib5": "true",
+            "attrib6": "false"
+        },
+        "text": "many many many many many words in text"
+    }
+    ```
+    """
     response = {
         "name": "myfile.md",
         "full_path": "/folder/myfile.md",
