@@ -67,9 +67,8 @@ def get_project(id):
     }
     return json.dumps(response)
 
-@app.route('/api/projects/<repo>/<branch>/folder')
-def get_folders(repo, branch):
-    # "folder": request.args.get('folderPath')
+@app.route('/api/projects/<projectCode>/<branch>/folder')
+def get_folders(projectCode, branch):
     response = {
         "list": [
             {
@@ -86,8 +85,8 @@ def get_folders(repo, branch):
     }
     return json.dumps(response)
 
-@app.route('/api/projects/<repo>/<branch>/file')
-def get_file(repo, branch):
+@app.route('/api/projects/<projectCode>/<branch>/file')
+def get_file(projectCode, branch):
 
     # "filePath": request.args.get('filePath')
     response = {
