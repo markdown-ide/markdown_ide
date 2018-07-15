@@ -1,5 +1,6 @@
 # coding=utf-8
 from flask import Flask
+from flask import request
 import json
 app = Flask(__name__)
 
@@ -63,6 +64,26 @@ def get_project(id):
         "id": id,
         "name": "MyProject1",
         "remote": "git@mywebsite.ru:myproject1",
+    }
+    return json.dumps(response)
+
+@app.route('/api/projects/<repo>/<branch>')
+def get_folders(repo, branch):
+    # request.args
+    response = {
+        "folder": request.args.get('folderPath'),
+        "list": [
+            {
+                "name": "myfile.md",
+                "full_path": "/folder/myfile.md",
+                "parent": "/folder/"
+            }
+        ],
+        "_meta": {
+            "per-page": 12,
+            "page": 12,
+            "total-pages": 12
+        }
     }
     return json.dumps(response)
 
