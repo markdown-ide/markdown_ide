@@ -44,7 +44,7 @@ same as `GET /api/projects/{id}`
 
 # /api/projects/source
 
-## GET /api/projects/{projectCode}/{branchName}?folderPath=/root/someFolder
+## GET /api/projects/{projectCode}/{branchName}/folder?folderPath=/root/someFolder
 
 **Request params:**
 
@@ -56,7 +56,6 @@ same as `GET /api/projects/{id}`
 
 ```
 {
-    "folder": "/root/someFolder",
     "list": [
         {
             "name": "myfile.md",
@@ -72,7 +71,7 @@ same as `GET /api/projects/{id}`
 }
 ```
 
-## GET /api/projects/source/master/{filepath}/{myfile}
+## GET /api/projects/{projectCode}/{branchName}/file?filePath=/rootFolder/filepath.txt
 
 
 **Response:**

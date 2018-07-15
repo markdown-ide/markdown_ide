@@ -67,11 +67,10 @@ def get_project(id):
     }
     return json.dumps(response)
 
-@app.route('/api/projects/<repo>/<branch>')
+@app.route('/api/projects/<repo>/<branch>/folder')
 def get_folders(repo, branch):
-    # request.args
+    # "folder": request.args.get('folderPath')
     response = {
-        "folder": request.args.get('folderPath'),
         "list": [
             {
                 "name": "myfile.md",
@@ -85,6 +84,29 @@ def get_folders(repo, branch):
             "total-pages": 12
         }
     }
+    return json.dumps(response)
+
+@app.route('/api/projects/<repo>/<branch>/file')
+def get_file(repo, branch):
+
+    # "filePath": request.args.get('filePath')
+    response = {
+        "name": "myfile.md",
+        "full_path": "/folder/myfile.md",
+        "parent": "/folder/",
+        "attributes": {
+            "attrib1": "val1",
+            "attrib2": "val2",
+            "attrib3": 123,
+            "attrib4": [
+                "one", "two"
+            ],
+            "attrib5": "true",
+            "attrib6": "false"
+        },
+        "text": "many many many many many words in text"
+    }
+
     return json.dumps(response)
 
 
