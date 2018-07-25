@@ -15,11 +15,14 @@ RUN mkdir -p /app
 WORKDIR /app
 
 RUN apt-get update
-RUN apt-get install  -y python3 python3-pip curl
+RUN apt-get install -y python3 python3-pip curl git
 
 COPY requirements.txt /app/
 RUN pip3 install Flask==0.10.1
 RUN pip3 freeze > requirements.txt
+RUN mkdir /app_data/
+RUN git clone https://github.com/may-cat/telegram-list.git /app_data/telegram-list
+RUN git clone https://github.com/markdown-ide/markdown_ide.git /app_data/markdown_ide
 
 COPY . /app
 
