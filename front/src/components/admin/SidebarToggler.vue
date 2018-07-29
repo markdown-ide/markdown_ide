@@ -6,7 +6,7 @@
           <v-icon large color="green">developer_board</v-icon>
         </v-list-tile-action>
         <v-list-tile-content v-if="!mini">
-          <v-list-tile-title><h2>Markdown IDE</h2></v-list-tile-title>
+          <v-list-tile-title><span class="app-title">Markdown IDE</span></v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action>
           <v-btn icon @click.stop="toggleMini">
@@ -30,3 +30,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.app-title {
+  font-size: 120%;
+}
+</style>

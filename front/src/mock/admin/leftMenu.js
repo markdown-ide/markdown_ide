@@ -37,7 +37,7 @@ export default [
     title: 'Git',
     items: [
       {
-        icon: 'people',
+        icon: 'call_split',
         title: 'Ветки',
         link: '/branches/',
         description: null,
