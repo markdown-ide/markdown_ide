@@ -14,8 +14,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 RUN mkdir -p /app
 WORKDIR /app
 
-RUN apt-get update
-RUN apt-get install -y python3 python3-pip curl git
+RUN apt-get update && apt-get install -y python3 python3-pip curl git python3-pygit2
 
 COPY requirements.txt /app/
 RUN pip3 install Flask==0.10.1
