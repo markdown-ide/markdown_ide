@@ -6,12 +6,12 @@ import sys
 import os
 import subprocess
 import re
-
+from pygit2 import Repository
 
 # Config (@todo: вынести это в отдельный конфигуратор)
 config = {
-    "REPO_FOLDER": "/home/it/web/flant.fox/docs/"
-#    "REPO_FOLDER": "/app_data/"
+ #   "REPO_FOLDER": "/home/it/web/flant.fox/docs/"
+    "REPO_FOLDER": "/app_data/"
 }
 
 
@@ -89,6 +89,7 @@ def get_project(id):
     }
     ```
     """
+    # TODO: сделать этот метод
     response = {
         "id": id,
         "name": "MyProject1",
@@ -96,6 +97,7 @@ def get_project(id):
     }
     return json.dumps(response)
 
+
 @app.route('/api/projects/<projectCode>/<branch>/folder')
 def get_folders(projectCode, branch):
     """
@@ -137,92 +139,29 @@ def get_folders(projectCode, branch):
     }
     return json.dumps(response)
 
-@app.route('/api/projects/<projectCode>/<branch>/file')
-def get_file(projectCode, branch):
+
+@app.route('/api/projects/<projectCode>/branches')
+def get_branches(projectCode):
     """
-    :projectCode: идентификатор проекта
-    :branch: необходимая ветка
-    :folderPath: GET параметр путь к папке, получить через request.args.get('filePath')
+    :param projectCode:
 
     **Response:**
     ```
-    {
-        "name": "myfile.md",
-        "full_path": "/folder/myfile.md",
-        "parent": "/folder/",
-        "attributes": {
-            "attrib1": "val1",
-            "attrib2": "val2",
-            "attrib3": 123,
-            "attrib4": [
-                "one", "two"
-            ],
-            "attrib5": "true",
-            "attrib6": "false"
-        },
-        "text": "many many many many many words in text"
-    }
+    ["master","branch1","branch2"]
     ```
     """
-    response = {
-        "name": "myfile.md",
-        "full_path": "/folder/myfile.md",
-        "parent": "/folder/",
-        "attributes": {
-            "attrib1": "val1",
-            "attrib2": "val2",
-            "attrib3": 123,
-            "attrib4": [
-                "one", "two"
-            ],
-            "attrib5": "true",
-            "attrib6": "false"
-        },
-        "text": "many many many many many words in text"
-    }
-
-    return json.dumps(response)
+    folder = config["REPO_FOLDER"] + projectCode
+    response = ["master","branch1","branch2"]
 
 
-@app.route('/api/projects/<projectCode>/<branch>/folder')
-def get_folders(projectCode, branch):
-    """
-    :projectCode: идентификатор проекта
-    :branch: необходимая ветка
-    :folderPath: GET параметр путь к папке, получить через request.args.get('folderPath')
+    if not os.path.isdir(folder):
+        # TODO: throw exception
+        return json.dumps({"error": 404, "description": "Project not found"})
 
-    **Response:**
-    ```
-    {
-        "list": [
-            {
-                "name": "myfile.md",
-                "full_path": "/folder/myfile.md",
-                "parent": "/folder/"
-            }
-        ],
-        "_meta": {
-            "per-page": 12,
-            "page": 12,
-            "total-pages": 12
-        }
-    }
-    ```
-    """
-    response = {
-        "list": [
-            {
-                "name": "myfile.md",
-                "full_path": "/folder/myfile.md",
-                "parent": "/folder/"
-            }
-        ],
-        "_meta": {
-            "per-page": 12,
-            "page": 12,
-            "total-pages": 12
-        }
-    }
+    repo = Repository(folder)
+    response = list(repo.branches)
+    print(response)
+
     return json.dumps(response)
 
 
