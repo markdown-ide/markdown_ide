@@ -44,7 +44,7 @@ same as `GET /api/projects/{id}`
 
 # /api/projects/source
 
-## GET /api/projects/{projectCode}/{branchName}/folder?folderPath=/root/someFolder
+## GET /api/projects/source/master/{filepath}/ (folder)
 
 **Request params:**
 
@@ -71,7 +71,7 @@ same as `GET /api/projects/{id}`
 }
 ```
 
-## GET /api/projects/{projectCode}/{branchName}/file?filePath=/rootFolder/filepath.txt
+## GET /api/projects/source/master/{filepath}/{myfile}
 
 
 **Response:**
