@@ -1,9 +1,13 @@
 const files = [
   {
-    name: 'src', files: [
+    name: 'src',
+    files: [
+      { name: 'admin', files: [
+          { name: 'file.php', created: Date.now() }
+      ]},
       { name: 'test.php', created: Date.now() },
-      { name: 'index.php', created: Date.now() }
-    ]
+      { name: 'index.php', created: Date.now() },
+    ],
   },
   { name: 'README.md', created: Date.now() },
 ];
@@ -15,10 +19,10 @@ export default [
       short description to repository
     `,
     branches: [
-      { name: 'master', files: files },
-      { name: 'dev', files: files },
-      { name: 'prod', files: files },
-    ]
+      { name: 'master', files },
+      { name: 'dev', files },
+      { name: 'prod', files },
+    ],
   },
   {
     name: 'test-repo2',
@@ -26,10 +30,10 @@ export default [
       short description to repository
     `,
     branches: [
-      { name: 'master', files: files },
-      { name: 'dev', files: files },
-      { name: 'prod', files: files },
-    ]
+      { name: 'master', files },
+      { name: 'dev', files },
+      { name: 'prod', files },
+    ],
   },
   {
     name: 'test-repo3',
@@ -37,10 +41,10 @@ export default [
       short description to repository
     `,
     branches: [
-      { name: 'master', files: files },
-      { name: 'dev', files: files },
-      { name: 'prod', files: files },
-    ]
+      { name: 'master', files },
+      { name: 'dev', files },
+      { name: 'prod', files },
+    ],
   },
   {
     name: 'test-repo4',
@@ -48,10 +52,10 @@ export default [
       short description to repository
     `,
     branches: [
-      { name: 'master', files: files },
-      { name: 'dev', files: files },
-      { name: 'prod', files: files },
-    ]
+      { name: 'master', files },
+      { name: 'dev', files },
+      { name: 'prod', files },
+    ],
   },
   {
     name: 'test-repo5',
@@ -59,9 +63,9 @@ export default [
       short description to repository
     `,
     branches: [
-      { name: 'master', files: files },
-      { name: 'dev', files: files },
-      { name: 'prod', files: files },
-    ]
+      { name: 'master', files },
+      { name: 'dev', files },
+      { name: 'prod', files },
+    ],
   },
-]
+];

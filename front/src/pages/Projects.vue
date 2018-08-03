@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import RepoItems from '../components/admin/RepoItems';
+  import RepoItems from '../components/RepoItems';
 
   export default {
     name: 'Projects',

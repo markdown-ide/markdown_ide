@@ -25,9 +25,9 @@ const routes = [
     component: Projects,
   },
   {
-    path: '/projects/:name',
+    path: '/projects/:repository/:branch/:path?', // path is list of folders delimited by colon
     name: 'ProjectFiles',
-    component: FilesTree
+    component: FilesTree,
   },
   {
     path: '/edit',

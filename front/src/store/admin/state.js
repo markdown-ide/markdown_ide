@@ -1,5 +1,4 @@
 import topMenu from '../../mock/admin/topMenu';
-import repositories from '../../mock/admin/repositories';
 
 export default {
   extraMenuItem: null,
@@ -47,5 +46,4 @@ export default {
     role: 'Administrator',
   },
   loadFromBackend: false,
-  repositories,
 };

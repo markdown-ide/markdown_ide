@@ -6,10 +6,10 @@ import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 import store from './store';
 import router from './router';
-import '@fortawesome/fontawesome-free/js/all'
+import '@fortawesome/fontawesome-free/js/all';
 
 Vue.use(Vuetify, {
-  iconfont: 'fa'
+  iconfont: 'fa',
 });
 
 Vue.config.devtools = true;

@@ -8,23 +8,19 @@
         :branches-count="repo.branches.length"></repo-item>
   </v-layout>
 </template>
-
 <script>
-  import RepoItem from './RepoItem';
+import RepoItem from './RepoItem';
 
-  export default {
-    name: "RepoItems",
-    components: {
-      RepoItem
-    },
-    computed: {
-      repoList: function () {
-        return this.$store.state.admin.repositories;
-      }
+export default {
+  name: "RepoItems",
+  components: {
+    RepoItem
+  },
+  computed: {
+    repoList: function () {
+      return this.$store.getters.repositories;
     }
   }
+};
 </script>
-
-<style scoped>
-
-</style>
+<style scoped></style>
