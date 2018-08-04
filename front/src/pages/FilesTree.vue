@@ -1,0 +1,96 @@
+<template>
+  <div id="container">
+    <v-data-table
+      :items="files"
+      hide-actions
+      hide-headers>
+      <template
+          slot="items"
+          class="elevation-1"
+          slot-scope="props">
+        <td><v-icon>{{ getIcon(props.item) }}</v-icon></td>
+        <td>
+          <router-link
+              v-if="isFolder(props.item) && props.item.files.length > 0"
+              :to="{ name: 'ProjectFiles',
+              params: { repository: repository, branch: branch, path: getPath(props.item.name) } }">
+            {{ props.item.name }}
+          </router-link>
+          <div
+              v-else-if="isFolder(props.item)">
+            {{ props.item.name }}
+          </div>
+          <router-link
+              v-else
+              :to="{ name: 'Projects' }">{{ props.item.name }}</router-link>
+        </td>
+        <td>{{ getDate(props.item.created) }}</td>
+      </template>
+    </v-data-table>
+  </div>
+</template>
+
+<script>
+  import RepositoryUtil from '../classes/RepositoryUtil';
+
+  export default {
+    name: 'FilesTree',
+    data() {
+      return {
+        repository: this.$route.params.repository,
+        branch: this.$route.params.branch,
+        path: this.$route.params.path
+      }
+    },
+    computed: {
+      files: function () {
+        return new RepositoryUtil(this.$store.getters.repositories).getFiles(
+            this.repository, this.branch, this.path
+        );
+      },
+    },
+    methods: {
+      getDate: function (timestamp) {
+        if (typeof timestamp === 'undefined') return;
+        let date = new Date(timestamp).toLocaleString();
+        return date.replace(',', '');
+      },
+      getIcon: function (item) {
+        if (item.hasOwnProperty('icon'))
+          return item.icon;
+        return item.hasOwnProperty('files') ? item.files.length > 0 ? 'fas fa-folder-open' : 'fas fa-folder' : 'fas fa-file';
+      },
+      isFolder: function (item) {
+        return RepositoryUtil.isFolder(item);
+      },
+      getPath: function (name) {
+        if (typeof this.path === 'undefined') return name;
+        if (name === '...') {
+          if (this.path.indexOf(':') === -1) return;
+          let _path = this.path.split(':');
+          _path.pop();
+          return _path.join(':');
+        }
+        return this.path + ':' + name;
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  div#container {
+    padding: 15px;
+  }
+
+  td:first-child {
+    width: 50px;
+  }
+
+  td:nth-child(1) {
+    text-align: left;
+  }
+
+  td:last-child {
+    text-align: right;
+  }
+</style>
