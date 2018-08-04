@@ -5,15 +5,16 @@
       hide-actions
       hide-headers>
       <template
-          slot="items"
-          class="elevation-1"
-          slot-scope="props">
+        slot="items"
+        class="elevation-1"
+        slot-scope="props"
+      >
         <td><v-icon>{{ getIcon(props.item) }}</v-icon></td>
         <td>
           <router-link
-              v-if="isFolder(props.item) && props.item.files.length > 0"
-              :to="{ name: 'ProjectFiles',
-              params: { repository: repository, branch: branch, path: getPath(props.item.name) } }">
+            v-if="isFolder(props.item) && props.item.files.length > 0"
+            :to="to(props.item)"
+          >
             {{ props.item.name }}
           </router-link>
           <div
@@ -71,13 +72,25 @@ export default {
     },
     getPath(name) {
       if (typeof this.path === 'undefined') return name;
-      if (name === '...') {
-        if (this.path.indexOf(':') === -1) return null;
-        const path = this.path.split(':');
+      if (name === '..') {
+        if (this.path.indexOf('/') === -1) return null;
+        // return `${this.path}/..`;
+        const path = this.path.split('/');
         path.pop();
-        return path.join(':');
+        // return path;
+        return path.join('/');
       }
-      return `${this.path}:${name}`;
+      // return this.path;
+      return `${this.path}/${name}`;
+    },
+    to(item) {
+      console.log('FilesTree to', item, this.$route);
+      // debugger;
+
+      return {
+        name: 'ProjectFiles',
+        params: { repository: this.repository, branch: this.branch, path: this.getPath(item.name) },
+      };
     },
   },
 };

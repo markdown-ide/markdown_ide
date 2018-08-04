@@ -27,15 +27,15 @@ export default class RepositoryUtil {
     let files = filesInBranch;
     // debugger;
 
-    const paths = path.split(':');
+    const paths = path.split('/');
     for (let i = 0; i < paths.length; i += 1) {
       files = files.find(
         item => item.name === paths[i],
       ).files;
     }
 
-    if (!files.find(item => item.name === '...')) {
-      files.unshift({ icon: 'none', name: '...', files: [0] });
+    if (!files.find(item => item.name === '..')) {
+      files.unshift({ icon: 'none', name: '..', files: [0] });
     }
 
     return files;
