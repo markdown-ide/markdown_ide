@@ -5,14 +5,14 @@
 </template>
 
 <script>
-  import RepoItems from '../components/RepoItems';
+import RepoItems from '../components/RepoItems';
 
-  export default {
-    name: 'Projects',
-    components: {
-      RepoItems
-    }
-  }
+export default {
+  name: 'Projects',
+  components: {
+    RepoItems,
+  },
+};
 </script>
 
 <style scoped>

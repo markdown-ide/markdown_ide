@@ -16,15 +16,15 @@
 </template>
 
 <script>
-  export default {
-    name: "RepoItem",
-    props: ['name', 'description', 'branchesCount'],
-    data() {
-      return {
-        defaultBranch: 'master'
-      }
-    },
-  }
+export default {
+  name: 'RepoItem',
+  props: ['name', 'description', 'branchesCount'],
+  data() {
+    return {
+      defaultBranch: 'master',
+    };
+  },
+};
 </script>
 
 <style scoped>
