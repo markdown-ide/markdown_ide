@@ -12,15 +12,15 @@
 import RepoItem from './RepoItem';
 
 export default {
-  name: "RepoItems",
+  name: 'RepoItems',
   components: {
-    RepoItem
+    RepoItem,
   },
   computed: {
-    repoList: function () {
+    repoList() {
       return this.$store.getters.repositories;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped></style>
