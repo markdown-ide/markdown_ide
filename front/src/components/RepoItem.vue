@@ -4,7 +4,8 @@
       <v-card-title primary-title>
         <div>
           <router-link
-              :to="{ name: 'ProjectFiles', params: { repository: name, branch: defaultBranch } }">
+            :to="to"
+          >
             {{ name }}
           </router-link>
           <div>{{ description }}</div>
@@ -23,6 +24,13 @@ export default {
     return {
       defaultBranch: 'master',
     };
+  },
+  computed: {
+    to() {
+      console.log('to', this.$route);
+
+      return { name: 'ProjectFiles', params: { repository: this.name, branch: this.defaultBranch } };
+    },
   },
 };
 </script>

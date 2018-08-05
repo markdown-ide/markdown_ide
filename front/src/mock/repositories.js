@@ -5,6 +5,13 @@ const files = [
       {
         name: 'admin',
         files: [
+          {
+            name: 'doc',
+            files: [{
+              name: 'doc.md',
+              created: Date.now(),
+            }],
+          },
           { name: 'file.md', created: Date.now() },
         ],
       },
