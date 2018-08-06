@@ -5,15 +5,16 @@
       hide-actions
       hide-headers>
       <template
-          slot="items"
-          class="elevation-1"
-          slot-scope="props">
+        slot="items"
+        class="elevation-1"
+        slot-scope="props"
+      >
         <td><v-icon>{{ getIcon(props.item) }}</v-icon></td>
         <td>
           <router-link
-              v-if="isFolder(props.item) && props.item.files.length > 0"
-              :to="{ name: 'ProjectFiles',
-              params: { repository: repository, branch: branch, path: getPath(props.item.name) } }">
+            v-if="isFolder(props.item) && props.item.files.length > 0"
+            :to="to(props.item)"
+          >
             {{ props.item.name }}
           </router-link>
           <div
@@ -31,50 +32,68 @@
 </template>
 
 <script>
-  import RepositoryUtil from '../classes/RepositoryUtil';
+import RepositoryUtil from '../classes/RepositoryUtil';
 
-  export default {
-    name: 'FilesTree',
-    data() {
+export default {
+  name: 'FilesTree',
+  data() {
+    return {
+      repository: this.$route.params.repository,
+      branch: this.$route.params.branch,
+      path: this.$route.params.path,
+    };
+  },
+  computed: {
+    files() {
+      return new RepositoryUtil(this.$store.getters.repositories).getFiles(
+        this.repository, this.branch, this.path,
+      );
+    },
+  },
+  methods: {
+    getDate(timestamp) {
+      if (typeof timestamp === 'undefined') {
+        return null;
+      }
+      const date = new Date(timestamp).toLocaleString();
+      return date.replace(',', '');
+    },
+    getIcon(item) {
+      if (item.icon) {
+        return item.icon;
+      }
+      if (item.files) {
+        return item.files.length > 0 ? 'fas fa-folder-open' : 'fas fa-folder';
+      }
+      return 'fas fa-file';
+    },
+    isFolder(item) {
+      return RepositoryUtil.isFolder(item);
+    },
+    getPath(name) {
+      if (typeof this.path === 'undefined') return name;
+      if (name === '..') {
+        if (this.path.indexOf('/') === -1) return null;
+        // return `${this.path}/..`;
+        const path = this.path.split('/');
+        path.pop();
+        // return path;
+        return path.join('/');
+      }
+      // return this.path;
+      return `${this.path}/${name}`;
+    },
+    to(item) {
+      console.log('FilesTree to', item, this.$route);
+      // debugger;
+
       return {
-        repository: this.$route.params.repository,
-        branch: this.$route.params.branch,
-        path: this.$route.params.path
-      }
+        name: 'ProjectFiles',
+        params: { repository: this.repository, branch: this.branch, path: this.getPath(item.name) },
+      };
     },
-    computed: {
-      files: function () {
-        return new RepositoryUtil(this.$store.getters.repositories).getFiles(
-            this.repository, this.branch, this.path
-        );
-      },
-    },
-    methods: {
-      getDate: function (timestamp) {
-        if (typeof timestamp === 'undefined') return;
-        let date = new Date(timestamp).toLocaleString();
-        return date.replace(',', '');
-      },
-      getIcon: function (item) {
-        if (item.hasOwnProperty('icon'))
-          return item.icon;
-        return item.hasOwnProperty('files') ? item.files.length > 0 ? 'fas fa-folder-open' : 'fas fa-folder' : 'fas fa-file';
-      },
-      isFolder: function (item) {
-        return RepositoryUtil.isFolder(item);
-      },
-      getPath: function (name) {
-        if (typeof this.path === 'undefined') return name;
-        if (name === '...') {
-          if (this.path.indexOf(':') === -1) return;
-          let _path = this.path.split(':');
-          _path.pop();
-          return _path.join(':');
-        }
-        return this.path + ':' + name;
-      }
-    }
-  }
+  },
+};
 </script>
 
 <style scoped>

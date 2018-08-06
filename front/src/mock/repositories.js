@@ -2,11 +2,21 @@ const files = [
   {
     name: 'src',
     files: [
-      { name: 'admin', files: [
-          { name: 'file.php', created: Date.now() }
-      ]},
-      { name: 'test.php', created: Date.now() },
-      { name: 'index.php', created: Date.now() },
+      {
+        name: 'admin',
+        files: [
+          {
+            name: 'doc',
+            files: [{
+              name: 'doc.md',
+              created: Date.now(),
+            }],
+          },
+          { name: 'file.md', created: Date.now() },
+        ],
+      },
+      { name: 'test.md', created: Date.now() },
+      { name: 'readme.md', created: Date.now() },
     ],
   },
   { name: 'README.md', created: Date.now() },

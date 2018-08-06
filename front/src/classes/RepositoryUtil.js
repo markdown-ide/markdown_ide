@@ -8,38 +8,40 @@ export default class RepositoryUtil {
    */
   getItemsByPath(items, path, i = 0) {
     console.log('getItemsByPath', items, path, i);
-    if (path.length === i)
-      return items;
+    if (path.length === i) { return items; }
     this.getItemsByPath(items.find(
       item => item.name === path[i],
-    ).files, path, ++i);
+    ).files, path, i + 1);
+    return [];
   }
 
   getFiles(repository, branch, path) {
-    const _filesInBranch = this.files.find(
+    const filesInBranch = this.files.find(
       item => item.name === repository,
     ).branches.find(
       item => item.name === branch,
     ).files;
 
-    if (typeof path === 'undefined') { return _filesInBranch; }
+    if (typeof path === 'undefined') { return filesInBranch; }
 
-    let _files = _filesInBranch;
+    let files = filesInBranch;
+    // debugger;
 
-    path = path.split(':');
-    for (let i = 0; i < path.length; i++) {
-      _files = _files.find(
-        item => item.name === path[i]
+    const paths = path.split('/');
+    for (let i = 0; i < paths.length; i += 1) {
+      files = files.find(
+        item => item.name === paths[i],
       ).files;
     }
 
-    if (!_files.find(item => item.name === '...'))
-      _files.unshift({ icon: 'none', name: '...', files: [0] });
+    if (!files.find(item => item.name === '..')) {
+      files.unshift({ icon: 'none', name: '..', files: [0] });
+    }
 
-    return _files;
+    return files;
   }
 
   static isFolder(item) {
-    return item.hasOwnProperty('files');
+    return item.files;
   }
 }
