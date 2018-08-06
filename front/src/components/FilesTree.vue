@@ -13,17 +13,17 @@
         <td>
           <router-link
             v-if="isFolder(props.item) && props.item.files.length > 0"
-            :to="to(props.item)"
+            :to="to(props.item, 'Project')"
           >
             {{ props.item.name }}
           </router-link>
           <div
-              v-else-if="isFolder(props.item)">
+            v-else-if="isFolder(props.item)">
             {{ props.item.name }}
           </div>
           <router-link
-              v-else
-              :to="{ name: 'Projects' }">{{ props.item.name }}</router-link>
+            v-else
+            :to="to(props.item, 'Edit')">{{ props.item.name }}</router-link>
         </td>
         <td>{{ getDate(props.item.created) }}</td>
       </template>
@@ -36,13 +36,7 @@ import RepositoryUtil from '../classes/RepositoryUtil';
 
 export default {
   name: 'FilesTree',
-  data() {
-    return {
-      repository: this.$route.params.repository,
-      branch: this.$route.params.branch,
-      path: this.$route.params.path,
-    };
-  },
+  props: ['repository', 'branch', 'path'],
   computed: {
     files() {
       return new RepositoryUtil(this.$store.getters.repositories).getFiles(
@@ -73,22 +67,19 @@ export default {
     getPath(name) {
       if (typeof this.path === 'undefined') return name;
       if (name === '..') {
-        if (this.path.indexOf('/') === -1) return null;
-        // return `${this.path}/..`;
+        if (this.path.indexOf('/') === -1) return undefined;
         const path = this.path.split('/');
         path.pop();
-        // return path;
         return path.join('/');
       }
-      // return this.path;
       return `${this.path}/${name}`;
     },
-    to(item) {
+    to(item, component) {
       console.log('FilesTree to', item, this.$route);
       // debugger;
 
       return {
-        name: 'ProjectFiles',
+        name: component,
         params: { repository: this.repository, branch: this.branch, path: this.getPath(item.name) },
       };
     },

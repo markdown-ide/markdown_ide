@@ -3,8 +3,8 @@ import Router from 'vue-router';
 import Home from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
 import Projects from '../pages/Projects';
+import Project from '../pages/Project.vue';
 import Edit from '../pages/Edit';
-import FilesTree from '../pages/FilesTree';
 
 Vue.use(Router);
 
@@ -25,12 +25,12 @@ const routes = [
     component: Projects,
   },
   {
-    path: '/projects/:repository/:branch/:path(.*)', // path is list of folders delimited by colon
-    name: 'ProjectFiles',
-    component: FilesTree,
+    path: '/projects/:repository/:branch/:path(.*)?',
+    name: 'Project',
+    component: Project,
   },
   {
-    path: '/edit',
+    path: '/edit/:repository?/:branch?/:path(.*)?',
     name: 'Edit',
     component: Edit,
   },

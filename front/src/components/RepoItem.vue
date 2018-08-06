@@ -29,7 +29,7 @@ export default {
     to() {
       console.log('to', this.$route);
 
-      return { name: 'ProjectFiles', params: { repository: this.name, branch: this.defaultBranch } };
+      return { name: 'Project', params: { repository: this.name, branch: this.defaultBranch } };
     },
   },
 };
