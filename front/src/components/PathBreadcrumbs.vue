@@ -27,7 +27,9 @@ export default {
   methods: {
     breadcrumbsTo(name) {
       const path = this.path
-        .replace(/^\/+|\/+$/g, '')
+        // убирает слеши в начале и конце, а так же имя файла
+        .replace(/^\/+|\/+[\w,\s-]+\.[aA-zZ]+$/g, '')
+        // поиск пути до каталога
         .substring(0, this.path.lastIndexOf(name) + name.length);
       return {
         name: 'Project',

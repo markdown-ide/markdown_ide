@@ -1,7 +1,7 @@
 export default {
   list: [
     {
-      name: 'MyProject1',
+      name: 'bx-data',
       remote: 'git@mywebsite.ru:myproject',
       branch: {
         list: [

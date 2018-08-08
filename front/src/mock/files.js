@@ -1,39 +1,89 @@
 export default {
   list: [
     {
-      isFolder: false,
-      name: 'myfile1.md',
-      parent: '/folder1/',
-    },
-    {
+      name: 'doc',
       isFolder: true,
-      name: 'folder2',
-      parent: '/folder1/',
-    },
-    {
-      isFolder: true,
-      name: 'folder1',
-      parent: '/folder1/folder2/',
-    },
-    {
-      isFolder: false,
-      name: 'myfile4.md',
       parent: '/',
     },
     {
+      name: 'models.md',
+      isFolder: false,
+      parent: '/doc/',
+    },
+    {
+      name: 'classes',
       isFolder: true,
-      name: 'folder1',
-      parent: '/',
+      parent: '/doc/',
     },
     {
-      isFolder: false,
-      name: 'myfile2.md',
-      parent: '/folder1/folder2/',
+      name: 'Element',
+      isFolder: true,
+      parent: '/doc/classes/',
     },
     {
+      name: 'all.md',
       isFolder: false,
-      name: 'myfile3.md',
-      parent: '/folder1/folder2/',
+      parent: '/doc/classes/',
+    },
+    {
+      name: 'all.md',
+      isFolder: false,
+      parent: '/doc/classes/Element/',
+    },
+    {
+      name: 'HlElement.md',
+      isFolder: false,
+      parent: '/doc/classes/Element/',
+    },
+    {
+      name: 'functions',
+      isFolder: true,
+      parent: '/doc/',
+    },
+    {
+      name: 'add.md',
+      isFolder: false,
+      parent: '/doc/functions/',
+    },
+    {
+      name: 'all.md',
+      isFolder: false,
+      parent: '/doc/functions/',
+    },
+    {
+      name: 'getList.md',
+      isFolder: false,
+      parent: '/doc/functions/',
+    },
+    {
+      name: 'getRow.md',
+      isFolder: false,
+      parent: '/doc/functions/',
+    },
+    {
+      name: 'update.md',
+      isFolder: false,
+      parent: '/doc/functions/',
+    },
+    {
+      name: 'upsert.md',
+      isFolder: false,
+      parent: '/doc/functions/',
+    },
+    {
+      name: 'howto',
+      isFolder: true,
+      parent: '/doc/',
+    },
+    {
+      name: 'HlElement',
+      isFolder: true,
+      parent: '/doc/howto/',
+    },
+    {
+      name: 'addRefFields.md',
+      isFolder: false,
+      parent: '/doc/howto/HlElement/',
     },
   ],
   _meta: {

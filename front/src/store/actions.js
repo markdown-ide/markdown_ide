@@ -16,7 +16,7 @@ const saveFile = ({ commit }) => {
     commit('FILE_UPLOAD', true);
     setTimeout(() => {
       commit('FILE_UPLOAD', false);
-    }, 1500);
+    }, (Math.random() * 800) + 200);
   }
 };
 

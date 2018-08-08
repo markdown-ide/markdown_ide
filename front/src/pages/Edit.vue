@@ -9,20 +9,22 @@
             :selected-branch="branch"
           />
         </v-flex>
-        <v-flex xs4>
+        <v-flex xs6>
           <path-breadcrumbs
             :repository="repository"
             :branch="branch"
             :path="path"
           />
         </v-flex>
-        <v-flex xs6 text-xs-right>
+        <v-flex xs4 text-xs-right>
           <div>
             <v-btn
               color="success"
               @click="saveData"
               :loading="$store.state.status.uploading"
-            >Сохранить</v-btn>
+            >
+              Сохранить
+            </v-btn>
           </div>
         </v-flex>
       </v-layout>
