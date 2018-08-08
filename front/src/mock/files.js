@@ -6,6 +6,16 @@ export default {
       parent: '/folder1/',
     },
     {
+      isFolder: true,
+      name: 'folder2',
+      parent: '/folder1/',
+    },
+    {
+      isFolder: true,
+      name: 'folder1',
+      parent: '/folder1/folder2/',
+    },
+    {
       isFolder: false,
       name: 'myfile4.md',
       parent: '/',
@@ -24,11 +34,6 @@ export default {
       isFolder: false,
       name: 'myfile3.md',
       parent: '/folder1/folder2/',
-    },
-    {
-      isFolder: true,
-      name: 'folder2',
-      parent: '/folder1/',
     },
   ],
   _meta: {

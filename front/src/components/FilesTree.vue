@@ -29,10 +29,17 @@ import Moment from 'moment/moment';
 
 export default {
   name: 'FilesTree',
-  props: ['repository', 'branch', 'path'],
+  props: {
+    repository: String,
+    branch: String,
+    path: String,
+  },
+  created() {
+    // console.log('FilesTree created', this.files);
+  },
   computed: {
     files() {
-      return this.$store.getters.files(this.path);
+      return this.$store.getters.files(this.path || '');
     },
     rowsPerPage() {
       return [10, 15, 25, { text: '$vuetify.dataIterator.rowsPerPageAll', value: -1 }];
@@ -43,16 +50,7 @@ export default {
       return Moment(timestamp).locale('ru').fromNow();
     },
     getIcon(item) {
-      if (item.isFolder) {
-        return 'fas fa-folder';
-      }
-      return 'fas fa-file';
-    },
-    isRootPath() {
-      return !this.path;
-    },
-    getPrevPath() {
-      return this.path.replace(/(.*)\//g, '');
+      return item.icon || (item.isFolder ? 'fas fa-folder' : 'fas fa-file');
     },
     to(item, component) {
       console.log('FilesTree to', item, this.$route);
@@ -62,7 +60,7 @@ export default {
         params: {
           repository: this.repository,
           branch: this.branch,
-          path: this.path ? `${this.path}/${item.name}` : item.name,
+          path: item.fullPath,
         },
       };
     },

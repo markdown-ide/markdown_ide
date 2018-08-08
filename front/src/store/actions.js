@@ -11,6 +11,16 @@ const loadFile = ({ commit }, path) => {
   }
 };
 
+const saveFile = ({ commit }) => {
+  if (process.env.NODE_ENV === 'development') {
+    commit('FILE_UPLOAD', true);
+    setTimeout(() => {
+      commit('FILE_UPLOAD', false);
+    }, 1500);
+  }
+};
+
 export default {
   loadFile,
+  saveFile,
 };

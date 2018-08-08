@@ -1,41 +1,42 @@
 <template>
   <div>
     <v-container grid-list-md text-xs-center>
-      <v-layout row wrap>
+      <v-layout row wrap align-center>
         <v-flex xs2>
-          <v-select
-            :items="branches"
-            hide-details
-            prepend-icon="fas fa-code-branch"
-            single-line
-            :value="branch"
-          >
-          </v-select>
+          <branch-select
+            :branches="branches"
+            :selected-branch="branch"
+          />
         </v-flex>
-        <v-flex xs2>
-
-        </v-flex>
-        <v-flex xs2>
-
-        </v-flex>
-        <v-flex xs2>
-
-        </v-flex>
-        <v-flex xs2>
-
+        <v-flex xs10>
+          <path-breadcrumbs
+            :repository="repository"
+            :branch="branch"
+            :path="path"
+          />
         </v-flex>
       </v-layout>
     </v-container>
-    <files-tree :repository="repository" :branch="branch" :path="path"></files-tree>
+    <files-tree
+      :repository="repository"
+      :branch="branch"
+      :path="path"
+    />
   </div>
 </template>
 
 <script>
 import FilesTree from '../components/FilesTree';
+import PathBreadcrumbs from '../components/PathBreadcrumbs';
+import BranchSelect from '../components/BranchSelect';
 
 export default {
   name: 'Project',
-  components: { FilesTree },
+  components: {
+    FilesTree,
+    PathBreadcrumbs,
+    BranchSelect,
+  },
   data() {
     return {
       repository: this.$route.params.repository,
@@ -51,4 +52,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  padding: 0 25px;
+}
+</style>
