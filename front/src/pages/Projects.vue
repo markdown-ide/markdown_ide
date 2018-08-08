@@ -1,16 +1,16 @@
 <template>
 <div id="container">
-  <repo-items/>
+  <project-items/>
 </div>
 </template>
 
 <script>
-import RepoItems from '../components/RepoItems';
+import ProjectItems from '../components/ProjectItems';
 
 export default {
   name: 'Projects',
   components: {
-    RepoItems,
+    ProjectItems,
   },
 };
 </script>

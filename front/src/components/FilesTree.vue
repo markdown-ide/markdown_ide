@@ -2,8 +2,9 @@
   <div id="container">
     <v-data-table
       :items="files"
-      hide-actions
-      hide-headers>
+      hide-headers
+      :rows-per-page-items="rowsPerPage"
+    >
       <template
         slot="items"
         class="elevation-1"
@@ -12,18 +13,10 @@
         <td><v-icon>{{ getIcon(props.item) }}</v-icon></td>
         <td>
           <router-link
-            v-if="isFolder(props.item) && props.item.files.length > 0"
-            :to="to(props.item, 'Project')"
+            :to="to(props.item, props.item.isFolder ? 'Project' : 'Edit')"
           >
             {{ props.item.name }}
           </router-link>
-          <div
-            v-else-if="isFolder(props.item)">
-            {{ props.item.name }}
-          </div>
-          <router-link
-            v-else
-            :to="to(props.item, 'Edit')">{{ props.item.name }}</router-link>
         </td>
         <td>{{ getDate(props.item.created) }}</td>
       </template>
@@ -32,55 +25,45 @@
 </template>
 
 <script>
-import RepositoryUtil from '../classes/RepositoryUtil';
+import Moment from 'moment/moment';
 
 export default {
   name: 'FilesTree',
   props: ['repository', 'branch', 'path'],
   computed: {
     files() {
-      return new RepositoryUtil(this.$store.getters.repositories).getFiles(
-        this.repository, this.branch, this.path,
-      );
+      return this.$store.getters.files(this.path);
+    },
+    rowsPerPage() {
+      return [10, 15, 25, { text: '$vuetify.dataIterator.rowsPerPageAll', value: -1 }];
     },
   },
   methods: {
     getDate(timestamp) {
-      if (typeof timestamp === 'undefined') {
-        return null;
-      }
-      const date = new Date(timestamp).toLocaleString();
-      return date.replace(',', '');
+      return Moment(timestamp).locale('ru').fromNow();
     },
     getIcon(item) {
-      if (item.icon) {
-        return item.icon;
-      }
-      if (item.files) {
-        return item.files.length > 0 ? 'fas fa-folder-open' : 'fas fa-folder';
+      if (item.isFolder) {
+        return 'fas fa-folder';
       }
       return 'fas fa-file';
     },
-    isFolder(item) {
-      return RepositoryUtil.isFolder(item);
+    isRootPath() {
+      return !this.path;
     },
-    getPath(name) {
-      if (typeof this.path === 'undefined') return name;
-      if (name === '..') {
-        if (this.path.indexOf('/') === -1) return undefined;
-        const path = this.path.split('/');
-        path.pop();
-        return path.join('/');
-      }
-      return `${this.path}/${name}`;
+    getPrevPath() {
+      return this.path.replace(/(.*)\//g, '');
     },
     to(item, component) {
       console.log('FilesTree to', item, this.$route);
-      // debugger;
 
       return {
         name: component,
-        params: { repository: this.repository, branch: this.branch, path: this.getPath(item.name) },
+        params: {
+          repository: this.repository,
+          branch: this.branch,
+          path: this.path ? `${this.path}/${item.name}` : item.name,
+        },
       };
     },
   },
@@ -94,6 +77,7 @@ export default {
 
   td:first-child {
     width: 50px;
+    padding-right: 0!important;
   }
 
   td:nth-child(1) {

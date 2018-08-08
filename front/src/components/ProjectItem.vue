@@ -8,8 +8,7 @@
           >
             {{ name }}
           </router-link>
-          <div>{{ description }}</div>
-          <div><v-icon size="15">fas fa-code-branch</v-icon> {{ branchesCount }}</div>
+          <div>{{ remote }}</div>
         </div>
       </v-card-title>
     </v-card>
@@ -18,8 +17,8 @@
 
 <script>
 export default {
-  name: 'RepoItem',
-  props: ['name', 'description', 'branchesCount'],
+  name: 'ProjectItem',
+  props: ['name', 'remote'],
   data() {
     return {
       defaultBranch: 'master',

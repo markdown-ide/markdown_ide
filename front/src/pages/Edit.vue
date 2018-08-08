@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     fetchData() {
-      this.$store.dispatch('loadFile');
+      this.$store.dispatch('loadFile', `${this.$route.params.repository}/${this.$route.params.branch}/${this.$route.params.path}`);
     },
   },
   computed: {

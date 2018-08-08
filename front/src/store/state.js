@@ -1,9 +1,11 @@
-import repositories from '../mock/repositories';
+import files from '../mock/files';
+import projects from '../mock/projects';
 
 export default {
   status: {
     loading: true,
   },
   mdText: '',
-  repositories,
+  files,
+  projects,
 };

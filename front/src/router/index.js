@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import Home from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
 import Projects from '../pages/Projects';
-import Project from '../pages/Project.vue';
+import Project from '../pages/Project';
 import Edit from '../pages/Edit';
 
 Vue.use(Router);
