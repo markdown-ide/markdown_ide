@@ -42,9 +42,17 @@
 
 same as `GET /api/projects/{id}`
 
+# GET /api/projects/<projectCode>/branches
+
+**Response:**
+
+```
+["master","branch1","branch2"]
+```
+
 # /api/projects/source
 
-## GET /api/projects/source/master/{filepath}/ (folder)
+## GET /api/projects/{projectCode}/master/{folderpath}/
 
 **Request params:**
 

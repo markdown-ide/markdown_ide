@@ -10,7 +10,6 @@ from pygit2 import Repository
 
 # Config (@todo: вынести это в отдельный конфигуратор)
 config = {
- #   "REPO_FOLDER": "/home/it/web/flant.fox/docs/"
     "REPO_FOLDER": "/app_data/"
 }
 
@@ -98,7 +97,37 @@ def get_project(id):
     return json.dumps(response)
 
 
-@app.route('/api/projects/<projectCode>/<branch>/folder')
+
+#@app.route('/api/projects') TODO: POST METHOD to create projects
+#def list_projects():
+
+@app.route('/api/projects/<projectCode>/branches')
+def get_branches(projectCode):
+    """
+    :param projectCode:
+
+    **Response:**
+    ```
+    ["master","branch1","branch2"]
+    ```
+    """
+    folder = config["REPO_FOLDER"] + projectCode
+    response = ["master","branch1","branch2"]
+
+
+    if not os.path.isdir(folder):
+        # TODO: throw exception
+        return json.dumps({"error": 404, "description": "Project not found"})
+
+    repo = Repository(folder)
+    response = list(repo.branches)
+    print(response)
+
+    return json.dumps(response)
+
+
+
+@app.route('/api/projects/<projectCode>/<branch>/<folder>') # TODO: метод криво оформлен
 def get_folders(projectCode, branch):
     """
     :projectCode: идентификатор проекта
@@ -140,32 +169,8 @@ def get_folders(projectCode, branch):
     return json.dumps(response)
 
 
-@app.route('/api/projects/<projectCode>/branches')
-def get_branches(projectCode):
-    """
-    :param projectCode:
 
-    **Response:**
-    ```
-    ["master","branch1","branch2"]
-    ```
-    """
-    folder = config["REPO_FOLDER"] + projectCode
-    response = ["master","branch1","branch2"]
-
-
-    if not os.path.isdir(folder):
-        # TODO: throw exception
-        return json.dumps({"error": 404, "description": "Project not found"})
-
-    repo = Repository(folder)
-    response = list(repo.branches)
-    print(response)
-
-    return json.dumps(response)
-
-
-@app.route('/api/projects/<projectCode>/<branch>/file')
+@app.route('/api/projects/<projectCode>/<branch>/<filepath>')
 def get_file(projectCode, branch):
     """
     :projectCode: идентификатор проекта
@@ -210,6 +215,17 @@ def get_file(projectCode, branch):
     }
 
     return json.dumps(response)
+
+
+# TODO POST METHOD FOR creating/editing files POST /api/projects/source/master/<filepath>
+
+# TODO ## GET /api/projects/compare/master..new_branch
+
+# TODO GET /api/projects/merge/from_branch/to_branch
+
+# TODO # GET /api/projects/push
+
+# TODO GET /api/projects/pull
 
 
 if __name__ == '__main__':
