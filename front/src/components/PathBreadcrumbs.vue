@@ -3,6 +3,7 @@
     v-if="path"
     divider="/"
     :large="true"
+    style="padding: 0 10px"
   >
     <v-breadcrumbs-item
       v-for="(item, i) in path.split('/')"

@@ -54,6 +54,6 @@ export default {
 
 <style scoped>
 .container {
-  padding: 0 25px;
+  padding: 15px 25px 0 25px;
 }
 </style>
