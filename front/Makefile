@@ -1,7 +1,7 @@
 .PHONY: clean build run stop inspect
 
-IMAGE_NAME = markdown_ide/python
-CONTAINER_NAME = markdown-ide-python
+IMAGE_NAME = markdown-ide-front
+CONTAINER_NAME = markdown-ide-front
 
 build:
 	docker build -t $(IMAGE_NAME) .
@@ -12,7 +12,7 @@ release:
 		--build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` -t $(IMAGE_NAME) .
 
 run:
-	docker run --rm -p 5000:5000 --name $(CONTAINER_NAME) $(IMAGE_NAME)
+	docker run --rm -p 8080:8080 --name $(CONTAINER_NAME) $(IMAGE_NAME)
 
 inspect:
 	docker inspect $(CONTAINER_NAME)
@@ -25,4 +25,7 @@ stop:
 
 clean:
 	docker ps -a | grep '$(CONTAINER_NAME)' | awk '{print $$1}' | xargs docker rm \
-	docker images | grep '$(IMAGE_NAME)' | awk '{print $$3}' | xargs docker rmi
+	docker images | grep '$(IMAGE_NAME)' | awk '{print $$3}' | xargs docker rm
+
+
+
