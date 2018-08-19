@@ -125,6 +125,7 @@ def get_branches(projectCode):
 
 
 
+@app.route('/api/projects/<projectCode>/<branch>/', defaults={'requested_path': ''})
 @app.route('/api/projects/<projectCode>/<branch>/<path:requested_path>/') # TODO: make some method for root path (for example: /api/projects/markdown_ide/master/). Now it doesn't fit to route.
 def get_folders(projectCode, branch, requested_path):
     """
@@ -171,11 +172,18 @@ def get_folders(projectCode, branch, requested_path):
     list = []
     for root, dirs, files in os.walk(folder + requested_path):
         for filename in files:
-            list.append({
-                "name": filename,
-                "full_path": root+"/"+filename,
-                "parent": root
-            })
+            if root==folder+"/":
+                list.append({
+                    "name": filename,
+                    "full_path": "/"+filename,
+                    "parent": "/"
+                })
+            else:
+                list.append({
+                    "name": filename,
+                    "full_path": root[len(folder):]+"/"+filename,
+                    "parent": root[len(folder):]+"/"
+                })
 
     response = {
         "list": list,
@@ -186,7 +194,6 @@ def get_folders(projectCode, branch, requested_path):
         }
     }
     return json.dumps(response)
-
 
 
 @app.route('/api/projects/<projectCode>/<branch>/<filepath>')

@@ -65,16 +65,66 @@ same as `GET /api/projects/{id}`
 ```
 {
     "list": [
+         {
+          "name": ".gitignore",
+          "full_path": "/.gitignore",
+          "parent": "/"
+        },
         {
-            "name": "myfile.md",
-            "full_path": "/folder/myfile.md",
-            "parent": "/folder/"
+          "name": "edit.png",
+          "full_path": "/edit.png",
+          "parent": "/"
+        },
+        {
+          "name": "merge.png",
+          "full_path": "/merge.png",
+          "parent": "/"
+        },
+        {
+          "name": "README.md",
+          "full_path": "/README.md",
+          "parent": "/"
+        },
+        {
+          "name": "list.png",
+          "full_path": "/list.png",
+          "parent": "/"
+        },
+        {
+          "name": "LICENSE",
+          "full_path": "/LICENSE",
+          "parent": "/"
+        },
+        {
+          "name": ".gitignore",
+          "full_path": "/python/.gitignore",
+          "parent": "/python/"
+        },
+        {
+          "name": "app.py",
+          "full_path": "/python/app.py",
+          "parent": "/python/"
+        },
+        {
+          "name": ".env",
+          "full_path": "/python/.env",
+          "parent": "/python/"
+        },
+        {
+          "name": "Makefile",
+          "full_path": "/python/Makefile",
+          "parent": "/python/"
+        },
+        {
+          "name": "README.md",
+          "full_path": "/python/README.md",
+          "parent": "/python/"
         }
     ],
     "_meta": {
-        "per-page": 12,
-        "page": 12,
-        "total-pages": 12
+        "per-page": 99999,
+        "page": 1,
+        "total-pages": 1
     }
 }
 ```
