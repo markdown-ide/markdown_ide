@@ -111,24 +111,23 @@ def get_branches(projectCode):
     ["master","branch1","branch2"]
     ```
     """
+    # Set folder
     folder = config["REPO_FOLDER"] + projectCode
-    response = ["master","branch1","branch2"]
-
-
     if not os.path.isdir(folder):
         # TODO: throw exception
         return json.dumps({"error": 404, "description": "Project not found"})
 
+    # Get branches from git's repo
     repo = Repository(folder)
     response = list(repo.branches)
-    print(response)
 
     return json.dumps(response)
 
 
 
-@app.route('/api/projects/<projectCode>/<branch>/<folder>') # TODO: метод криво оформлен
-def get_folders(projectCode, branch):
+@app.route('/api/projects/<projectCode>/<branch>/', defaults={'requested_path': ''})
+@app.route('/api/projects/<projectCode>/<branch>/<path:requested_path>/') # TODO: make some method for root path (for example: /api/projects/markdown_ide/master/). Now it doesn't fit to route.
+def get_folders(projectCode, branch, requested_path):
     """
     :projectCode: идентификатор проекта
     :branch: необходимая ветка
@@ -152,26 +151,53 @@ def get_folders(projectCode, branch):
     }
     ```
     """
+    # Get path
+    requested_path = "/"+requested_path
+#    print(requested_path, file=sys.stderr)
+
+    # Set folder
+    folder = config["REPO_FOLDER"] + projectCode
+    if not os.path.isdir(folder):
+        # TODO: throw exception
+        return json.dumps({"error": 404, "description": "Project not found"})
+
+    # Checkout branch
+    repo = Repository(folder)
+    branch = repo.lookup_branch('master')
+    ref = repo.lookup_reference(branch.name)
+    repo.checkout(ref)
+    # TODO: exception if branch not exists
+
+    # Get files it path
+    list = []
+    for root, dirs, files in os.walk(folder + requested_path):
+        for filename in files:
+            if root==folder+"/":
+                list.append({
+                    "name": filename,
+                    "full_path": "/"+filename,
+                    "parent": "/"
+                })
+            else:
+                list.append({
+                    "name": filename,
+                    "full_path": root[len(folder):]+"/"+filename,
+                    "parent": root[len(folder):]+"/"
+                })
+
     response = {
-        "list": [
-            {
-                "name": "myfile.md",
-                "full_path": "/folder/myfile.md",
-                "parent": "/folder/"
-            }
-        ],
+        "list": list,
         "_meta": {
-            "per-page": 12,
-            "page": 12,
-            "total-pages": 12
+            "per-page": 99999, # TODO: make pagination?
+            "page": 1,
+            "total-pages": 1
         }
     }
     return json.dumps(response)
 
 
-
 @app.route('/api/projects/<projectCode>/<branch>/<filepath>')
-def get_file(projectCode, branch):
+def get_file(projectCode, branch, filepath):
     """
     :projectCode: идентификатор проекта
     :branch: необходимая ветка
@@ -229,4 +255,4 @@ def get_file(projectCode, branch):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
