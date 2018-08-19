@@ -125,7 +125,7 @@ def get_branches(projectCode):
 
 
 
-@app.route('/api/projects/<projectCode>/<branch>/<requested_path>') # TODO: метод криво оформлен
+@app.route('/api/projects/<projectCode>/<branch>/<path:requested_path>/') # TODO: make some method for root path (for example: /api/projects/markdown_ide/master/). Now it doesn't fit to route.
 def get_folders(projectCode, branch, requested_path):
     """
     :projectCode: идентификатор проекта
@@ -151,8 +151,8 @@ def get_folders(projectCode, branch, requested_path):
     ```
     """
     # Get path
-    # TODO: parsing path
-    requested_path = '/docs'
+    requested_path = "/"+requested_path
+#    print(requested_path, file=sys.stderr)
 
     # Set folder
     folder = config["REPO_FOLDER"] + projectCode
