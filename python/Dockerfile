@@ -1,15 +1,10 @@
-#FROM python:3-alpine
 FROM ubuntu:18.04
-MAINTAINER Niko Schmuck <niko@nava.de>
 
 ARG BUILD_DATE
 ARG VCS_REF
 
 # Set labels (see https://microbadger.com/labels)
-LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/nikos/python3-alpine-flask-docker"
-
+LABEL org.label-schema.build-date=$BUILD_DATE
 
 RUN mkdir -p /app
 WORKDIR /app
